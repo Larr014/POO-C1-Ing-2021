@@ -31,12 +31,21 @@ def buscar_persona(id):
     #binding
     cursor.execute(query,values)
     fila = cursor.fetchone() #Cuando un select retorna como máximo 1 valor se usa fetchone
-    print(f'ID: {fila[0]} | Nombre: {fila[1]}')
-    return fila
+    if fila!=None: #Si fila tiene algo
+        print(f'ID: {fila[0]} | Nombre: {fila[1]}')
+        return fila
+    else:
+        print("No existe el id")
 
 def modificar_persona(persona):
     query = "UPDATE people SET fullname = %s,profession = %s, birth=%s,genre=%s,bodyweight=%s,height=%s,nationality=%s WHERE id = %s"
     values = (persona.get_fullname(),persona.get_profession(),persona.get_birth(),persona.get_genre(),persona.get_bodyweight(),persona.get_height(),persona.get_nationality(),persona.get_id())
     #binding
+    cursor.execute(query,values)
+    conexion.commit()
+
+def eliminar_persona(p):
+    query = "DELETE FROM people WHERE id = %s"
+    values = (p.get_id(),)
     cursor.execute(query,values)
     conexion.commit()

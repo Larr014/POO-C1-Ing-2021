@@ -19,43 +19,47 @@ def buscar_persona():
     id = input("Ingrese id de la persona a buscar: ")
     #buscar el id
     fila = crud.buscar_persona(id)
+    
     return fila
     #mostrar resultado
 
 def modificar_persona():
     #pedir el id
     fila = buscar_persona()
-    p = Persona(fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[0])
-    #Preguntar que quiere modificar
-    respuesta = input("Desea modificar el nombre: s/n").lower()
-    if respuesta == 's':
-        nombre = input("Ingrese nombre: ")
-        p.set_fullname(nombre) #Actualizar el objeto persona con el campo nuevo
-    respuesta = input("Desea modificar la profesion: s/n").lower()
-    if respuesta == 's':
-        profesion = input("Ingrese profesion: ")
-        p.set_profession(profesion)
-    respuesta = input("Desea modificar la fecha: s/n").lower()
-    if respuesta == 's':
-        fecha = input("Ingrese fecha de nacimiento: (Año-Mes-Dia) ")
-        p.set_birth(fecha)
-    respuesta = input("Desea modificar el genero: s/n").lower()
-    if respuesta == 's':
-        genero = input("Ingrese genero: (M/F) ").upper()
-        p.set_genre(genero)
-    respuesta = input("Desea modificar el peso: s/n").lower()
-    if respuesta == 's':
-        peso = float(input("Ingrese peso: "))
-        p.set_bodyweight(peso)
-    respuesta = input("Desea modificar la altura: s/n").lower()
-    if respuesta == 's':
-        altura = float(input("Ingrese altura: "))
-        p.set_height(altura)
-    respuesta = input("Desea modificar la nacionalidad: s/n").lower()
-    if respuesta == 's':
-        nacionalidad = input("Ingrese nacionalidad: ")
-        p.set_nationality(nacionalidad)
-    crud.modificar_persona(p)
+    if fila != None: #Si fila tiene algo, pregunta por lo que quieres modificar
+        p = Persona(fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[0])
+        #Preguntar que quiere modificar
+        respuesta = input("Desea modificar el nombre: s/n").lower()
+        if respuesta == 's':
+            nombre = input("Ingrese nombre: ")
+            p.set_fullname(nombre) #Actualizar el objeto persona con el campo nuevo
+        respuesta = input("Desea modificar la profesion: s/n").lower()
+        if respuesta == 's':
+            profesion = input("Ingrese profesion: ")
+            p.set_profession(profesion)
+        respuesta = input("Desea modificar la fecha: s/n").lower()
+        if respuesta == 's':
+            fecha = input("Ingrese fecha de nacimiento: (Año-Mes-Dia) ")
+            p.set_birth(fecha)
+        respuesta = input("Desea modificar el genero: s/n").lower()
+        if respuesta == 's':
+            genero = input("Ingrese genero: (M/F) ").upper()
+            p.set_genre(genero)
+        respuesta = input("Desea modificar el peso: s/n").lower()
+        if respuesta == 's':
+            peso = float(input("Ingrese peso: "))
+            p.set_bodyweight(peso)
+        respuesta = input("Desea modificar la altura: s/n").lower()
+        if respuesta == 's':
+            altura = float(input("Ingrese altura: "))
+            p.set_height(altura)
+        respuesta = input("Desea modificar la nacionalidad: s/n").lower()
+        if respuesta == 's':
+            nacionalidad = input("Ingrese nacionalidad: ")
+            p.set_nationality(nacionalidad)
+        crud.modificar_persona(p)
+    else:
+        print("No se modifico nada")
 
 
 
@@ -64,7 +68,15 @@ def modificar_persona():
     #Modificar lo que se pregunto
 
 def eliminar_persona():
-    pass
+    #pedir el id
+    fila = buscar_persona()
+    if fila != None:
+        p = Persona(fila[1],fila[2],fila[3],fila[4],fila[5],fila[6],fila[7],fila[0])
+        opcion = input("Desea eliminar a esta persona: s/n ")
+        if opcion.lower()=='s':
+            crud.eliminar_persona(p)
+    else:
+        print("No se elimino nada")
 
 def mostrar_personas():
     crud.mostrar_personas()
